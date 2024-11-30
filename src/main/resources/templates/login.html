@@ -1,0 +1,67 @@
+<!-- templates/login.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login - CareYou</title>
+    <link rel="stylesheet" th:href="@{/css/loginstyle.css}" />
+</head>
+<body style="margin: 0">
+    <div class="loginPage-container">
+        <div class="login-page-left-flexbox">
+            <h1 class="app-title-container">
+                <span class="app-title">
+                    <span class="app-title_span0">Care</span>
+                    <span class="app-title_span1">You</span>
+                </span>
+            </h1>
+            <h1 class="welcome-text">Welcome back !</h1>
+            <h1 class="sign-in-text">Sign in to CareYou</h1>
+        </div>
+		<form th:action="@{/login}" th:object="${loginForm}" method="post">
+        <div class="loginPagebg-container" th:style="|--src: url('@{/assets/Login-Register/Rectangle-RegLogin.png}')|">
+            <div class="loginPage-form">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                <div class="Lgflex_col">
+
+                    <div class="loginPage-form-title">
+                        <h1 class="acc-det">Account Details</h1>
+                    </div>
+
+                    <div class="email-container">
+                        <input type="email" id="email" name="username" class="emailBox"
+                               placeholder="E-mail Address"
+                               th:field="*{username}"/>
+                        <div class="error-text" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+                    </div>
+
+                    <div class="pwflexRow">
+                        <input type="password" id="password" name="password" class="passBox"
+                               placeholder="Password" 
+                               th:field="*{password}"/>
+                        <!-- Implement show/hide password functionality with JavaScript if needed -->
+                    </div>
+                    <div class="error-text" th:if="${loginError}" th:text="${loginError}"></div>
+
+                    <div class="barRowforg_sign">
+                        <a href="/forgot-password" class="forgPass">Forgot Password?</a>
+                        <div class="flex_rowbar">
+                            <h1 class="noAcc">Don’t Have Account?</h1>
+                            <a href="/register" class="forgPass">Sign Up</a>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+                <hr class="line" size="1" />
+                <div class="bottom-container">
+                    <div class="agree-flexRow">
+                        <h1 class="byclick">By clicking the Sign In button below, you agree to the CareYou</h1>
+                        <a href="/terms-of-service" class="tos">Terms of Service</a>
+                    </div>
+                    <button type="submit" class="login-btn">Sign In</button>
+                </div>
+        </div>
+            </form>
+    </div>
+</body>
+</html>

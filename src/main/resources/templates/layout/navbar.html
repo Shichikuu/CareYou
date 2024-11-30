@@ -1,0 +1,35 @@
+<!-- templates/layout/navbar.html -->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+<div th:fragment="navbar" class="navbar-container">
+    <link rel="stylesheet" th:href="@{/css/navbarstyle.css}" />
+    <div class="navbar_shape">
+        <div class="navbar">
+            <div class="navbarBtn_wrapper">
+                <a th:classappend="|${activePage == 'home' ? ' navbar_btn_selected' : ''}|"
+                   href="/" class="navbar_btn">Home</a>
+                <a th:classappend="${activePage == 'donate' ? ' navbar_btn_selected' : ''}"
+                   href="/donate" class="navbar_btn">Donate</a>
+                <a sec:authorize="isAuthenticated()"
+                   th:classappend="${activePage == 'fundraise' ? ' navbar_btn_selected' : ''}"
+                   href="/fundraise" class="navbar_btn">Fundraise</a>
+                <a th:classappend="${activePage == 'topDonation' ? ' navbar_btn_selected' : ''}"
+                   href="/top-donation" class="navbar_btn">Top Donation</a>
+                <a sec:authorize="isAuthenticated()"
+                   th:classappend="${activePage == 'history' ? ' navbar_btn_selected' : ''}"
+                   href="/history" class="navbar_btn">History</a>
+            </div>
+            <div class="auth-buttons">
+                <a sec:authorize="!isAuthenticated()" href="/login" class="signInbtn">Sign In</a>
+                <a sec:authorize="isAuthenticated()" href="/profile" class="profileBtn">
+                    <img th:src="@{/assets/NavbarProfile.svg}" alt="Profile" />
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- Notification for unverified organizations -->
+    <div th:if="${showOrgNotification}" class="notif-container show">
+        <span>Please fill the organization form</span>&nbsp;
+        <a href="/organization/form" style="color: #01A95D">here</a>&nbsp;<span>to get verified</span>
+    </div>
+</div>

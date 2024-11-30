@@ -1,0 +1,114 @@
+<!-- templates/home.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+
+<head>
+  <title>Home - CareYou</title>
+  <link rel="stylesheet" th:href="@{/css/homepagestyle.css}" />
+</head>
+<body>
+<div th:replace="~{layout/navbar :: navbar}"></div>
+
+<!-- Home Section -->
+
+<section class="home" >
+  <!-- Top Section -->
+  <div class="top" th:style="|background-image: url('@{/assets/HomePage/home-background.png}');|">
+    <div class="title_container">
+      <div class="title_flexbox">
+        <h1 class="app-title_box">
+                        <span class="app-title">
+                            <span class="app-title_span0">Care</span>
+                            <span class="app-title_span1">You</span>
+                        </span>
+        </h1>
+        <h1 class="tagline_box">
+                        <span class="tagline">
+                            <span class="tagline_span0">Join Us</span>
+                            <span class="tagline_span1">
+                                <br />
+                                in Making Dreams a Reality
+                            </span>
+                        </span>
+        </h1>
+        <button class="fundraise-btn" onclick="location.href='/fundraise'">Start Fundraising</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Section -->
+  <div class="bottom">
+    <div class="discover-flexbox">
+      <h1 class="discover-title">Discover</h1>
+
+      <!-- Recommended Social Activities -->
+      <div class="programs-container">
+        <h1 class="section-title">Recommended Social Activities</h1>
+        <div class="card-container">
+          <div th:each="program, iterStat : ${socialPrograms}">
+            <div th:class="'program-card-container' + (iterStat.index == 0 ? ' wide' : '')">
+              <div th:class="'program-container' + (iterStat.index == 0 ? ' wide' : '')"
+                   th:style="--src: 'url(' + @{/assets/Program/} + ${program.programImage} + ')'"
+                   th:onclick="'location.href=\'/program/detail/' + ${program.programId} + '\'" >
+                <div class="program-container-content">
+                  <div th:class="'program-container-content-flexbox' + (iterStat.index == 0 ? ' wide' : '')">
+                    <h1 th:class="'program-title' + (iterStat.index == 0 ? ' wide' : '')"
+                        th:text="${program.programTitle}"></h1>
+                    <h3 th:class="'fundraiser' + (iterStat.index == 0 ? ' wide' : '')"
+                        th:text="${program.fundraiserName}"></h3>
+                    <h2 th:class="'raised' + (iterStat.index == 0 ? ' wide' : '')"
+                        th:text="'Rp ' + #numbers.formatInteger(${program.programRaised}, INVARIANT_LOCALE, 0, ',') + ' raised'"></h2>
+                    <div th:class="'progress-bar' + (iterStat.index == 0 ? ' wide' : '')">
+                      <div class="progress-bar-inner"
+                           th:style="'width: ' + ${program.progress} + '%'"></div>
+                    </div>
+                    <div class="brief-description" th:text="${program.programDesc}"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recommended Projects -->
+      <div class="programs-container">
+        <h1 class="section-title">Recommended Projects</h1>
+        <div class="card-container">
+          <div th:each="program, iterStat : ${projectPrograms}">
+            <div th:class="'program-card-container' + (iterStat.index == 0 ? ' wide' : '')">
+              <div th:class="'program-container' + (iterStat.index == 0 ? ' wide' : '')"
+                   th:style="--src: 'url(' + @{/assets/Program/} + ${program.programImage} + ')'"
+                   th:onclick="'location.href=\'/program/detail/' + ${program.programId} + '\'" >
+                <div class="program-container-content">
+                  <div th:class="'program-container-content-flexbox' + (iterStat.index == 0 ? ' wide' : '')">
+                    <h1 th:class="'program-title' + (iterStat.index == 0 ? ' wide' : '')"
+                        th:text="${program.programTitle}"></h1>
+                    <h3 th:class="'fundraiser' + (iterStat.index == 0 ? ' wide' : '')"
+                        th:text="${program.fundraiserName}"></h3>
+                    <h2 th:class="'raised' + (iterStat.index == 0 ? ' wide' : '')"
+                        th:text="'Rp ' + #numbers.formatInteger(${program.programRaised}, INVARIANT_LOCALE, 0, ',') + ' raised'"></h2>
+                    <div th:class="'progress-bar' + (iterStat.index == 0 ? ' wide' : '')">
+                      <div class="progress-bar-inner"
+                           th:style="'width: ' + ${program.progress} + '%'"></div>
+                    </div>
+                    <div class="brief-description" th:text="${program.programDesc}"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- View More Button -->
+      <button class="viewmore-btn" onclick="location.href='/donate'">View More</button>
+    </div>
+  </div>
+
+</section>
+
+<div th:replace="~{layout/footer :: footer}"></div>
+</body>
+</html>
