@@ -10,5 +10,6 @@ public class CommentFactory {
 
     public Comment create(String username, String content, User user, Transaction transaction) {
         return new Comment(username, content, user.getUserId(), transaction.getTransactionId(), user, transaction);
+        // test
     }
 }
